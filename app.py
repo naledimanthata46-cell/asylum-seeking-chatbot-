@@ -414,7 +414,80 @@ footer p + p {
 </footer>
 
 <script>
+
 function sendMessage(event) {
+    event.preventDefault();
+
+    const input = document.getElementById("user-message");
+    const response = document.getElementById("chat-response");
+
+    const question = input.value.trim().toLowerCase();
+
+    if (!question) {
+        response.textContent = "Please enter a question first.";
+        return;
+    }
+
+    const answers = [
+        {
+            keywords: ["hello", "hi", "hey", "good morning", "good afternoon"],
+            answer: "Hello! Welcome to RSA Asylum Assistance. I can help you explore information about asylum applications, documents, rights and family dependants. What would you like to know?"
+        },
+        {
+            keywords: ["apply", "application", "asylum process", "how do i start"],
+            answer: "The asylum application process in South Africa involves approaching the relevant Department of Home Affairs refugee reception service and following the official application procedure. You may be asked questions about your identity and the reasons you are seeking protection. Procedures can change, so confirm the current requirements with Home Affairs or a qualified refugee-support organisation."
+        },
+        {
+            keywords: ["passport", "no documents", "no identity", "no id", "without documents"],
+            answer: "If you do not have a passport or identity documents, do not assume that you cannot seek information or approach the asylum process. Explain your circumstances to the relevant officials and ask what identity declaration or alternative procedure applies. Your individual circumstances may matter."
+        },
+        {
+            keywords: ["rights", "right", "responsibilities", "responsibility"],
+            answer: "Asylum seekers have rights and responsibilities under South African law. These may include protections relating to their treatment and the conditions attached to their asylum documentation. The exact position depends on your circumstances and current law. Seek guidance from Home Affairs or a qualified legal-support organisation."
+        },
+        {
+            keywords: ["documents", "paperwork", "supporting documents", "what must i bring"],
+            answer: "Documents that may be relevant include identity documents, passports, travel documents and other information that helps explain your circumstances. Requirements can differ between applicants. If you do not have certain documents, explain why rather than assuming you cannot proceed."
+        },
+        {
+            keywords: ["children", "child", "family", "spouse", "wife", "husband", "dependant", "dependent"],
+            answer: "Family circumstances may be relevant to an asylum application. You may need to provide information about your spouse, children or other dependants, including whether they are accompanying you or are elsewhere. Not having a spouse or children does not, by itself, determine whether someone qualifies for asylum."
+        },
+        {
+            keywords: ["refugee", "asylum seeker", "difference"],
+            answer: "An asylum seeker is someone seeking international protection whose claim has not yet been finally decided. A refugee is someone recognised as meeting the applicable legal definition of a refugee. The two terms describe different stages or statuses."
+        },
+        {
+            keywords: ["help", "lawyer", "legal assistance", "human assistance"],
+            answer: "If you need assistance with an individual case, consider contacting a qualified refugee-law practitioner or a recognised refugee-support organisation. This chatbot is an information prototype and cannot replace legal advice or official assistance."
+        }
+    ];
+
+    let answer = "Thank you for your question. I don't have a verified answer for that topic yet. You can try asking about asylum applications, passports, supporting documents, rights, family members or dependants. For advice about an individual case, please contact a qualified support organisation.";
+
+    for (const item of answers) {
+        if (item.keywords.some(keyword => question.includes(keyword))) {
+            answer = item.answer;
+            break;
+        }
+    }
+
+    const userMessage = document.createElement("p");
+    userMessage.textContent = "You: " + input.value;
+    userMessage.style.cssText =
+        "background:#e4f3ed;padding:12px;margin:12px 0;border-radius:12px;color:#193a3d;";
+
+    const botMessage = document.createElement("p");
+    botMessage.textContent = "RSA Assistance Guide: " + answer;
+    botMessage.style.cssText =
+        "background:#f1f4f2;padding:14px;margin:12px 0;border-radius:12px;color:#193a3d;";
+
+    response.appendChild(userMessage);
+    response.appendChild(botMessage);
+
+    input.value = "";
+}
+
     event.preventDefault();
 
     const input = document.getElementById("user-message");
