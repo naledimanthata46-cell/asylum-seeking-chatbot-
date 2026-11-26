@@ -488,23 +488,8 @@ function sendMessage(event) {
     input.value = "";
 }
 
-    event.preventDefault();
+    
 
-    const input = document.getElementById("user-message");
-    const response = document.getElementById("chat-response");
-
-    if (!input.value.trim()) {
-        response.textContent = "Please enter a question first.";
-        return;
-    }
-
-    response.textContent =
-        "Thank you for your question. The automated assistance " +
-        "feature is still being developed. Please do not enter " +
-        "personal or confidential information.";
-
-    input.value = "";
-}
 </script>
 
 </body>
